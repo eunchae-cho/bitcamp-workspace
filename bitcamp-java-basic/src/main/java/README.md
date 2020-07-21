@@ -1,1 +1,1 @@
-# /src/main/java 폴더
+# bitcamp-java-basic.src.main.java

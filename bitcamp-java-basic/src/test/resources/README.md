@@ -1,1 +1,1 @@
-# /src/test/resource 폴더
+# bitcamp-java-basic.src.test.resources
