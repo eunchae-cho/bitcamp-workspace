@@ -143,3 +143,16 @@ Mini-PMS를 이용하는 회원 정보를 출력한다. 일단 한 명의 정보
         - > gradle build
     - Eclipse IDE로 프로젝트 가져오기
 
+### 8일차
+
+- Gradle로 자바 프로젝트를 Eclipse 프로젝트로 설정
+    -'build.gradle' 빌드 스크립트 파일에 'eclipse' 추가
+- 이클립스 설정 파일 생성
+    - > gradle eclipse
+- Eclipse에 Import해서 프로젝트 리스트에 가져오기
+    - bitcamp-java-basic 추가
+    - bitcamp-java-project 추가
+
+- 값을 메모리에 저장하는 방식
+ - com.eomcs.
+

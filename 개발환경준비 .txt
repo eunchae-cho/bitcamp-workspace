@@ -80,7 +80,4 @@
         -> git 폴더에 들어가서 변경도니 다른 사람의 작업을 가져올 때
             - users밑 git폴더에 들어간다.
             - 원하는 폴더에 들어가서 git pull을 한다.
-    -github에서 폴더 및 파일 삭제 방법
-        - git rm -rf {삭제하고 싶은 폴더나 파일}
-          git commit -m "remove file
-          git push -u origin master
+   
