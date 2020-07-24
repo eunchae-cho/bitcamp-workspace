@@ -1,1 +1,0 @@
-# mini-pms-01.src.main.resources

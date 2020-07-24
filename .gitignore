@@ -551,3 +551,8 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,linux,emacs,forgegradle,windows,eclipse,java-web,visualstudio
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
