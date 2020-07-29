@@ -6,6 +6,8 @@ public class Exam0640 {
   public static void main(String[] args) {
     int i = 2;
     int result = i++ + i++ * i++;
+    // 먼저 증감 연산자의 i값을 먼저 계산하고 연산을 시작한다.
+    
     // 연산자 우선수위: 
     // 1) ++, -- 
     // 2) *, /, %
