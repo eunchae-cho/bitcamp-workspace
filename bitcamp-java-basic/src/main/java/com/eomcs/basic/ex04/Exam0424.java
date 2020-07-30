@@ -8,10 +8,10 @@ public class Exam0424 {
     double d;
     
     
-    f = 99999.8888877777f;
+    f = 99999.8888877777f; // 반올림됨
     System.out.println(f);
     
-    d = 99999.8888877777f;
+    d = 99999.8888877777f; // 반올림되고 쓰레기값 붙음
     System.out.println(d);
     
     f = 99999.88f;

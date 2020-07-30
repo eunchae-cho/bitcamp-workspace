@@ -13,7 +13,7 @@ public class Exam0430 {
     
     c = 65;
     c = 0x42;           // 유니코드값 가능
-    c = 0b01000011;     // 이진법도 쌉가능
+    c = 0b01000011;     // 이진법도 가능
     System.out.println(c);  // 유니코드 값
     
     short s = 65;
