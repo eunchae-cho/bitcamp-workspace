@@ -42,7 +42,20 @@ public class Exam0210 {
     System.out.println("--------------------------------");
 
     m10(new int[] {100, 90, 80}, new String[] {"국어","영어","수학"}, "홍길동");
+
+
+    // 2 + 3 + 7 + 4 =?
+    int sum = 0;
+//    sum = plus(2,3);
+//    sum = plus(sum,7);
+//    sum = plus(sum,4);
+//    System.out.prinln(sum);
+    // 위와 같은 것
+    System.out.println(plus(sum = plus(plus(2,3),7),4));
+
   }
+
+
 
   static void m1() {
     System.out.println("Hello!");
@@ -128,6 +141,10 @@ public class Exam0210 {
     for (int i = 0; i < scores.length; i++) {
       System.out.printf("%s = %d 점\n",subjects[i],scores[i]);
     }
+  }
+
+  static int plus(int a, int b) {
+    return a + b;
   }
 
 }
