@@ -1,4 +1,4 @@
-package com.eomcs.basic.ex99;
+package com.eomcs.ex03;
 
 public class Exam0161 {
 
