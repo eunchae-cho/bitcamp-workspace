@@ -1,0 +1,33 @@
+package com.eomcs.oop.ex03;
+
+public class Exam0850 {
+
+  static class A {
+
+    int b = 200;
+    int c;
+
+    A() {
+      // 자바 컴파일러는
+      // 인스턴스 초기화 블록이나 필드 초기화 문장이 있다면,
+      // 종류에 구분없이 선언된 순서 그대로 모든 생성자의 처음 부분에 복사한다.
+
+      System.out.println("A()");
+    }
+
+    {
+      // 인스턴스 초기화 블록
+      a = 111;
+      System.out.println("초기화 블록 실행");
+    }
+
+    int a = 100;
+
+  }
+
+  public static void main(String[] args) {
+    A obj1 = new A();
+    System.out.printf("a=%d, b=%d, c=%d\n",obj1.a,obj1.b,obj1.c);
+  }
+
+}
