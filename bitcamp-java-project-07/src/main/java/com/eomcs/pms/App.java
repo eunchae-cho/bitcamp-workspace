@@ -5,8 +5,7 @@ import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
 import com.eomcs.util.Prompt;
 
-public class App_b {
-
+public class App {
 
   public static void main(String[] args) {
 
@@ -40,10 +39,8 @@ public class App_b {
           default:
             System.out.println("실행할 수 없는 명령입니다.");
         }
-        System.out.println();
+        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
       }
-
-    Prompt.close();
+  Prompt.close();
   }
-
 }
