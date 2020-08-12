@@ -290,3 +290,36 @@ macOS 개발 환경 구축하기
 - 클래스 사용법
   - com.eomcs.oop.ex03 패키지 예제
   - Exam0440 ~ Exam0970 클래스
+
+### 21일차(2020-08-10,월)
+
+- 인스턴스 메서드와 클래스 메서드의 활용 연습
+  - com.eomcs.oop.ex04 패키지 예제
+  - Exam0110 ~ Exam0250 클래스
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 07 버전 수행: 클래스를 이용하여 새 데이터 타입 정의하기
+    - App 변경
+  - 08 버전 수행: 클래스로 메서드를 분류하기
+    - Prompt, MemberHandler, ProjectHandler, TaskHandler 추가
+    - App 변경
+  - 09 버전 수행: 패키지로 클래스를 분류하기
+    - com.eomcs.util 패키지 추가
+      - Prompt 클래스 이동
+    - com.eomcs.pms.handler 패키지 추가
+      - MemberHandler, ProjectHandler, TaskHandler 클래스 이동
+    - App 변경
+
+### 22일차(2020-08-11,화)
+
+- 상속 문법
+  - com.eomcs.oop.ex05 패키지 예제
+- 다형성 문법: 다형적 변수
+  - com.eomcs.oop.ex06.a 패키지 예제
+
+### 23일차(2020-08-12,수)
+
+- 다형성 문법: 오버로딩, 오버라이딩
+  - com.eomcs.oop.ex06.b ~ e 패키지 예제
+- 캡슐화 문법
+  - eom.eomcs.oop.ex07 패키지 예제
+  

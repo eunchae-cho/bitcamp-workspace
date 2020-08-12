@@ -5,4 +5,5 @@ public class X3 extends X2 {
   void m2() {
     System.out.println("X3의 m2()");
   }
+
 }
