@@ -1,7 +1,8 @@
 // java.util.ArrayList와 비교
 package com.eomcs.corelib.ex03;
 
-import java.util.ArrayList;
+import java.util.ArrayList; // 인스턴스의 주소 목록을 관리
+                            // 인스턴스는 JVM이 관리하는 것
 
 public class Exam0120 {
   public static void main(String[] args) {
@@ -13,12 +14,12 @@ public class Exam0120 {
 
     print(list);
 
+
     list.remove(2); // aaa, bbb, ddd,
     print(list);
 
     list.remove(0); // bbb, ddd,
     print(list);
-
     // 유효한 인덱스가 아니면 예외 발생시킨다!
     // list.remove(4); // 실행 오류!
     print(list);
