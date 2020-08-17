@@ -6,12 +6,17 @@ public class MyArrayList_test4 {
   public static void main(String[] args) {
 
     // 1번 리스트
-    ArrayList list1 = new ArrayList();
+    ArrayList list1 = new ArrayList(100);
     list1.add("aaa");
     list1.add("bbb");
     list1.add("ccc");
     list1.add("ddd");
     list1.add("eee");
+    list1.add("fff");
+    list1.add("ggg");
+    print(list1);
+
+    System.out.println("------------------");
 
     // 2번 리스트
     ArrayList list2 = new ArrayList();
@@ -19,13 +24,11 @@ public class MyArrayList_test4 {
     list2.add("ggg");
     list2.add("hhh");
     list2.add("iii");
-
-
-    print(list1);
-
-    System.out.println("------------------");
-
+    list2.add("jjj");
+    list2.add("kkk");
+    list2.add("lll");
     print(list2);
+
 
   }
 

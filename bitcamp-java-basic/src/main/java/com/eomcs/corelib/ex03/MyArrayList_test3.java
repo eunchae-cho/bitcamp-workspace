@@ -10,20 +10,25 @@ public class MyArrayList_test3 {
     list1.add("ccc");
     list1.add("ddd");
     list1.add("eee");
+    list1.add("fff");
+    list1.add("ggg");
+    list1.remove(2);
+    list1.remove(0);
+    print2(list1);
+
+
+    System.out.println("------------------");
 
     // 2번 리스트
-    MyArrayList list2 = new MyArrayList();
+    MyArrayList list2 = new MyArrayList(1);
     list2.add("fff");
     list2.add("ggg");
     list2.add("hhh");
     list2.add("iii");
-
-
-    print(list1);
-
-    System.out.println("------------------");
-
-    print(list2);
+    list2.add("jjj");
+    list2.add("kkk");
+    list2.add("lll");
+    print2(list2);
 
   }
 
@@ -31,6 +36,17 @@ public class MyArrayList_test3 {
 
     for (int i = 0; i < list.size(); i++) {
       String str = (String) list.get(i);
+      System.out.print(str+",");
+    }
+    System.out.println();
+
+  }
+
+  static void print2(MyArrayList list) {
+    Object[] arr;
+    arr = list.toArray();
+    for (Object obj : arr) {
+      String str = (String) obj;
       System.out.print(str+",");
     }
     System.out.println();
