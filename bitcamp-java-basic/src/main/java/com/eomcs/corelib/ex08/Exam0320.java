@@ -19,7 +19,8 @@ public class Exam0320 {
     map.put("s04", v4);
     map.put("s05", v5);
 
-    Set keys = map.keySet();
+    Set keys = map.keySet(); // 실제로 목록을 갖고 있는 것이 아님
+                              // 현재 있는 키 목록만 갖고 있음
 
     map.remove("s01");
     map.remove("s02");

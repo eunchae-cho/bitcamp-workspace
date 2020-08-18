@@ -1,10 +1,8 @@
-// java.util.HashSet vs ArrayList
 package com.eomcs.corelib.ex07;
 
 import java.util.ArrayList;
 
-// ArrayList는 중복을 허용한다.
-public class Exam0120 {
+public class Exam0120_test {
   public static void main(String[] args) {
     String v1 = new String("aaa");
     String v2 = new String("bbb");
@@ -18,24 +16,14 @@ public class Exam0120 {
     list.add(v3);
     list.add(v4);
     list.add(v3);
-
     print(list);
   }
 
-  static void print(ArrayList set) {
-    Object[] values = set.toArray();
-    for (Object value : values) {
-      System.out.print(value + ", ");
+  static void print(ArrayList list) {
+    for (int i = 0; i < list.size(); i++) {
+      System.out.print(list.get(i)+",");
     }
     System.out.println();
   }
+
 }
-
-
-
-
-
-
-
-
-

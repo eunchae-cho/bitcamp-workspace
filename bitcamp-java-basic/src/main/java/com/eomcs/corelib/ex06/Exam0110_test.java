@@ -1,10 +1,9 @@
-// Queue 구현과 사용
 package com.eomcs.corelib.ex06;
+// Queue의 구현과 사용
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class Exam0110 {
-
+public class Exam0110_test {
   public static void main(String[] args) {
     String s1 = new String("aaa");
     String s2 = new String("bbb");
@@ -13,57 +12,32 @@ public class Exam0110 {
     String s5 = new String("eee");
 
     ArrayBlockingQueue queue = new ArrayBlockingQueue(10);
-    queue.offer(s1); // aaa,
+    queue.offer(s1);
     print(queue);
-    queue.offer(s2); // aaa, bbb,
+    queue.offer(s2);
     print(queue);
-    queue.offer(s3); // aaa, bbb, ccc,
-    print(queue);
-
-    System.out.println("==>" + queue.poll()); // aaa,
-    print(queue);
-    System.out.println("==>" + queue.poll()); // bbb,
+    queue.offer(s3);
     print(queue);
 
-    queue.offer(s4); // ccc, ddd,
+    System.out.println("=> "+queue.poll());
     print(queue);
-    queue.offer(s5); // ccc, ddd, eee,
+    System.out.println("=> "+queue.poll());
     print(queue);
 
-    System.out.println("----------------------------");
+    System.out.println("---------------------");
 
     String value;
-    while ((value = (String) queue.poll()) != null) {
+    while((value = (String)queue.poll()) != null) {
       System.out.println(value);
     }
+
   }
 
   static void print(ArrayBlockingQueue queue) {
     Object[] arr = queue.toArray();
     for (int i = 0; i < arr.length; i++) {
-      System.out.print(arr[i] + ", ");
+      System.out.println(arr[i]+",");
     }
     System.out.println();
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
