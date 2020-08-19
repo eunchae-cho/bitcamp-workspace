@@ -1,63 +1,50 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Date;
+import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  static final int LENGTH = 100;
-  static Member[] list = new Member[LENGTH];
-  static int size;
+  MemberList memberList = new MemberList();
 
-  static class Member {
-    int no;
-    String name;
-    String email;
-    String password;
-    String photo;
-    String tel;
-    Date registeredDate;
-  }
-
-  public static void add() {
+  public void add() {
     System.out.println("[회원 등록]");
-    Member m = new Member();
 
-    m.no = Prompt.inputInt("번호? ");
-    m.name = Prompt.inputString("이름? ");
-    m.email = Prompt.inputString("이메일? ");
-    m.password = Prompt.inputString("암호? ");
-    m.photo = Prompt.inputString("사진? ");
-    m.tel = Prompt.inputString("전화? ");
-    m.registeredDate = new java.sql.Date(System.currentTimeMillis());
+    Member member = new Member();
+    member.no = Prompt.inputInt("번호? ");
+    member.name = Prompt.inputString("이름? ");
+    member.email = Prompt.inputString("이메일? ");
+    member.password = Prompt.inputString("암호? ");
+    member.photo = Prompt.inputString("사진? ");
+    member.tel = Prompt.inputString("전화? ");
+    member.registeredDate = new java.sql.Date(System.currentTimeMillis());
 
-    list[size++] = m;
+    memberList.add(member);
   }
 
-  public static void list() {
+  public void list() {
     System.out.println("[회원 목록]");
 
-    for (int i = 0; i < size; i++) {
-      Member m = list[i];
+    Member[] members = memberList.toArray();
 
-      System.out.printf("%d, %s, %s, %s, %s, %s, %s\n",
-          m.no,
-          m.name,
-          m.email,
-          m.password,
-          m.photo,
-          m.tel,
-          m.registeredDate);
+    for (Member member : members) {
+      System.out.printf("%d, %s, %s, %s, %s\n",
+          member.no,
+          member.name,
+          member.email,
+          member.tel,
+          member.registeredDate);
     }
   }
 
-    public static Member findByName(String name) {
-      for (int i = 0; i < size; i++) {
-        Member member = list[i];
-        if (member.name.equals(name)) {
-          return member;
-        }
+  public Member findByName(String name) {
+    Member[] members = memberList.toArray();
+
+    for (Member member : members) {
+      if (member.name.equals(name)) {
+        return member;
       }
-      return null;
     }
+    return null;
+  }
 }
