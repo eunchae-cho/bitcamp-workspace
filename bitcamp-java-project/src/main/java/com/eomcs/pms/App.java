@@ -4,12 +4,17 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import com.eomcs.pms.context.AppContextListener;
+import com.eomcs.context.ApplicationContextListener;
+import com.eomcs.pms.domain.Board;
+import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.domain.Task;
 import com.eomcs.pms.handler.BoardAddCommand;
 import com.eomcs.pms.handler.BoardDeleteCommand;
 import com.eomcs.pms.handler.BoardDetailCommand;
@@ -32,47 +37,73 @@ import com.eomcs.pms.handler.TaskDeleteCommand;
 import com.eomcs.pms.handler.TaskDetailCommand;
 import com.eomcs.pms.handler.TaskListCommand;
 import com.eomcs.pms.handler.TaskUpdateCommand;
+import com.eomcs.pms.listener.AppInitListener;
+import com.eomcs.pms.listener.DataHandlerListener;
 import com.eomcs.util.Prompt;
 
 public class App {
 
-  Map<String, Object> context = new HashMap<>();
-  List<AppContextListener> listeners = new ArrayList<>();
+  // 옵저버와 공유할 맵 객체
+  Map<String,Object> context = new Hashtable<>();
 
-  public void addAppContextListener(AppContextListener listener) {
+  // 옵저버를 보관할 컬렉션 객체
+  List<ApplicationContextListener> listeners = new ArrayList<>();
+
+  // 옵저버를 등록하는 메서드
+  public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
   }
 
-  public void removeContextListner(AppContextListener listener) {
+  // 옵저버를 제거하는 메서드
+  public void removeApplicationContextListener(ApplicationContextListener listener) {
     listeners.remove(listener);
   }
 
-  private void notifyAppContextListenerOnStart() {
-    for (AppContextListener listener : listeners) {
+  // service() 실행 전에 옵저버에게 통지한다.
+  private void notifyApplicationContextListenerOnServiceStarted() {
+    for (ApplicationContextListener listener : listeners) {
+      // 곧 서비스를 시작할테니 준비하라고,
+      // 서비스 시작에 관심있는 각 옵저버에게 통지한다.
+      // => 옵저버에게 맵 객체를 넘겨준다.
+      // => 옵저버는 작업 결과를 파라미터로 넘겨준 맵 객체에 담아 줄 것이다.
       listener.contextInitialized(context);
     }
   }
 
-  private void notifyAppContextListnerOnStop() {
-    for (AppContextListener listener : listeners) {
-     listener.contextDestroyed(context);
+  // service() 실행 후에 옵저버에게 통지한다.
+  private void notifyApplicationContextListenerOnServiceStopped() {
+    for (ApplicationContextListener listener : listeners) {
+      // 서비스가 종료되었으니 마무리 작업하라고,
+      // 마무리 작업에 관심있는 각 옵저버에게 통지한다.
+      // => 옵저버에게 맵 객체를 넘겨준다.
+      // => 옵저버는 작업 결과를 파라미터로 넘겨준 맵 객체에 담아 줄 것이다.
+      listener.contextDestroyed(context);
     }
   }
 
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     App app = new App();
+
+    // 옵저버 등록
+    app.addApplicationContextListener(new AppInitListener());
+    app.addApplicationContextListener(new DataHandlerListener());
+
     app.service();
   }
 
+  @SuppressWarnings("unchecked")
+  public void service() throws Exception {
 
-  public void service() {
+    notifyApplicationContextListenerOnServiceStarted();
 
-    notifyAppContextListenerOnStart();
+    // 옵저버가 작업한 결과를 맵에서 꺼낸다.
+    List<Board> boardList = (List<Board>) context.get("boardList");
+    List<Member> memberList = (List<Member>) context.get("memberList");
+    List<Project> projectList = (List<Project>) context.get("projectList");
+    List<Task> taskList = (List<Task>) context.get("taskList");
 
-
-
-    Map<String, Command> commandMap = new HashMap<>();
+    Map<String,Command> commandMap = new HashMap<>();
 
     commandMap.put("/board/add", new BoardAddCommand(boardList));
     commandMap.put("/board/list", new BoardListCommand(boardList));
@@ -104,49 +135,46 @@ public class App {
     Deque<String> commandStack = new ArrayDeque<>();
     Queue<String> commandQueue = new LinkedList<>();
 
-    loop: while (true) {
-      String inputStr = Prompt.inputString("명령> ");
+    loop:
+      while (true) {
+        String inputStr = Prompt.inputString("명령> ");
 
-      if (inputStr.length() == 0) {
-        continue;
-      }
+        if (inputStr.length() == 0) {
+          continue;
+        }
 
-      commandStack.push(inputStr);
-      commandQueue.offer(inputStr);
+        commandStack.push(inputStr);
+        commandQueue.offer(inputStr);
 
-      switch (inputStr) {
-        case "history":
-          printCommandHistory(commandStack.iterator());
-          break;
-        case "history2":
-          printCommandHistory(commandQueue.iterator());
-          break;
-        case "quit":
-        case "exit":
-          System.out.println("안녕!");
-          break loop;
-        default:
-          Command command = commandMap.get(inputStr);
-          if (command != null) {
-            try {
-              // 실행 중 오류가 발생할 수 있는 코드는 try 블록 안에 둔다.
-              command.execute();
-            } catch (Exception e) {
-              // 오류가 발생하면 그 정보를 갖고 있는 객체의 클래스 이름을 출력한다.
-              System.out.println("--------------------------------------------------------------");
-              System.out.printf("명령어 실행 중 오류 발생: %s\n", e);
-              System.out.println("--------------------------------------------------------------");
+        switch (inputStr) {
+          case "history": printCommandHistory(commandStack.iterator()); break;
+          case "history2": printCommandHistory(commandQueue.iterator()); break;
+          case "quit":
+          case "exit":
+            System.out.println("안녕!");
+            break loop;
+          default:
+            Command command = commandMap.get(inputStr);
+            if (command != null) {
+              try {
+                // 실행 중 오류가 발생할 수 있는 코드는 try 블록 안에 둔다.
+                command.execute();
+              } catch (Exception e) {
+                // 오류가 발생하면 그 정보를 갖고 있는 객체의 클래스 이름을 출력한다.
+                System.out.println("--------------------------------------------------------------");
+                System.out.printf("명령어 실행 중 오류 발생: %s\n", e);
+                System.out.println("--------------------------------------------------------------");
+              }
+            } else {
+              System.out.println("실행할 수 없는 명령입니다.");
             }
-          } else {
-            System.out.println("실행할 수 없는 명령입니다.");
-          }
+        }
+        System.out.println();
       }
-      System.out.println();
-    }
 
     Prompt.close();
 
-    notifyAppContextListnerOnStop();
+    notifyApplicationContextListenerOnServiceStopped();
   }
 
   void printCommandHistory(Iterator<String> iterator) {
@@ -168,6 +196,4 @@ public class App {
 
 
 
-
 }
-
