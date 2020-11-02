@@ -3,6 +3,8 @@ package com.eomcs.pms.handler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+
+import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
 public class ProjectDeleteCommand implements Command {
@@ -18,14 +20,20 @@ public class ProjectDeleteCommand implements Command {
       return;
     }
 
+    Project project = new Project();
     try (Connection con = DriverManager.getConnection(
         "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
         PreparedStatement stmt = con.prepareStatement(
             "delete from pms_project where no=?")) {
+    	
+    	 try (PreparedStatement stmt2 = con.prepareStatement(
+		          "delete from pms_member_project where project_no="+ project.getNo())) {
+		        stmt2.executeUpdate();
+		      }
 
       stmt.setInt(1, no);
-
       int count = stmt.executeUpdate();
+      
       if (count == 0) {
         System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
       } else {
