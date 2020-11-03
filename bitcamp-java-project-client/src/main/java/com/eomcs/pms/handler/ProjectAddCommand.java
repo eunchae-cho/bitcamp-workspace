@@ -61,7 +61,6 @@ public class ProjectAddCommand implements Command {
         members.add(member);
       }
     }
-    project.setMembers(members);
 
     // 사용자로부터 입력 받은 멤버 정보를 프로젝트에 저장한다.
     project.setMembers(members);
