@@ -10,7 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+
 import com.eomcs.context.ApplicationContextListener;
+import com.eomcs.pms.dao.BoardDao;
+import com.eomcs.pms.dao.MemberDao;
+import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.handler.BoardAddCommand;
 import com.eomcs.pms.handler.BoardDeleteCommand;
 import com.eomcs.pms.handler.BoardDetailCommand;
@@ -92,24 +96,28 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    MemberListCommand memberListCommand = new MemberListCommand();
-    commandMap.put("/board/add", new BoardAddCommand(memberListCommand));
-    commandMap.put("/board/list", new BoardListCommand());
-    commandMap.put("/board/detail", new BoardDetailCommand());
-    commandMap.put("/board/update", new BoardUpdateCommand());
-    commandMap.put("/board/delete", new BoardDeleteCommand());
+    BoardDao baordDao = new BoardDao();
+    MemberDao memberDao = new MemberDao();
+    ProjectDao projectDao = new ProjectDao();
+    MemberListCommand memberListCommand = new MemberListCommand(memberDao);
+    
+    commandMap.put("/board/add", new BoardAddCommand(baordDao,memberDao));
+    commandMap.put("/board/list", new BoardListCommand(baordDao));
+    commandMap.put("/board/detail", new BoardDetailCommand(baordDao));
+    commandMap.put("/board/update", new BoardUpdateCommand(baordDao));
+    commandMap.put("/board/delete", new BoardDeleteCommand(baordDao));
 
-    commandMap.put("/member/add", new MemberAddCommand());
-    commandMap.put("/member/list", memberListCommand);
-    commandMap.put("/member/detail", new MemberDetailCommand());
-    commandMap.put("/member/update", new MemberUpdateCommand());
-    commandMap.put("/member/delete", new MemberDeleteCommand());
+    commandMap.put("/member/add", new MemberAddCommand(memberDao));
+    commandMap.put("/member/list", new MemberListCommand(memberDao));
+    commandMap.put("/member/detail", new MemberDetailCommand(memberDao));
+    commandMap.put("/member/update", new MemberUpdateCommand(memberDao));
+    commandMap.put("/member/delete", new MemberDeleteCommand(memberDao));
 
-    commandMap.put("/project/add", new ProjectAddCommand(memberListCommand));
-    commandMap.put("/project/list", new ProjectListCommand());
-    commandMap.put("/project/detail", new ProjectDetailCommand());
-    commandMap.put("/project/update", new ProjectUpdateCommand(memberListCommand));
-    commandMap.put("/project/delete", new ProjectDeleteCommand());
+    commandMap.put("/project/add", new ProjectAddCommand(projectDao, memberDao));
+    commandMap.put("/project/list", new ProjectListCommand(projectDao));
+    commandMap.put("/project/detail", new ProjectDetailCommand(projectDao));
+    commandMap.put("/project/update", new ProjectUpdateCommand(projectDao, memberDao));
+    commandMap.put("/project/delete", new ProjectDeleteCommand(projectDao));
 
     commandMap.put("/task/add", new TaskAddCommand(memberListCommand));
     commandMap.put("/task/list", new TaskListCommand());
