@@ -1,6 +1,7 @@
 package com.eomcs.pms.handler;
 
 import java.util.List;
+import java.util.Map;
 
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Member;
@@ -15,7 +16,7 @@ ProjectDao projectDao;
 	}
 	
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[프로젝트 목록]");
 
     try {
@@ -26,8 +27,11 @@ ProjectDao projectDao;
     		StringBuilder members = new StringBuilder();
     		for (Member member : project.getMembers()) {
     			if(members.length() > 0) {
-    				members.append(member.getName());
+    				members.append(",");
     			}
+    			members.append(member.getName());
+    		}
+    		
     			System.out.printf("%d, %s, %s ~ %s, %s, [%s]\n",
     					project.getNo(),
     					project.getTitle(),
@@ -37,7 +41,7 @@ ProjectDao projectDao;
     					members.toString());
     			
     		}       
-      }
+      
     } catch (Exception e) {
       System.out.println("프로젝트 목록 조회 중 오류 발생!");
       e.printStackTrace();

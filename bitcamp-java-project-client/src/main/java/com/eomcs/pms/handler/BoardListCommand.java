@@ -1,25 +1,26 @@
 package com.eomcs.pms.handler;
 
 import java.util.List;
+import java.util.Map;
 
-import com.eomcs.pms.dao.BoardDao;
+import com.eomcs.pms.dao.mariadb.BoardDaoImpl;
 import com.eomcs.pms.domain.Board;
 
 public class BoardListCommand implements Command {
 
-	BoardDao boardDao;
+	BoardDaoImpl boardDaoImpl;
 	
-	public BoardListCommand(BoardDao boardDao) {
-		this.boardDao = boardDao;
+	public BoardListCommand(BoardDaoImpl boardDaoImpl) {
+		this.boardDaoImpl = boardDaoImpl;
 	}
 	
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[게시물 목록]");
 
       try {
         System.out.println("번호, 제목, 작성자, 등록일, 조회수");
-        List<Board> list = boardDao.findAll();
+        List<Board> list = boardDaoImpl.findAll();
         for (Board board : list) {
           System.out.printf("%d, %s, %s, %s, %d\n",
               board.getNo(),

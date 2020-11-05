@@ -1,5 +1,7 @@
 package com.eomcs.pms.handler;
 
+import java.util.Map;
+
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
@@ -14,7 +16,7 @@ ProjectDao projectDao;
 	}
 	
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[프로젝트 상세보기]");
     int no = Prompt.inputInt("번호? ");
 

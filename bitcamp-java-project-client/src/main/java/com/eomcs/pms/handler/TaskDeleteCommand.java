@@ -1,5 +1,7 @@
 package com.eomcs.pms.handler;
 
+import java.util.Map;
+
 import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.util.Prompt;
 
@@ -12,7 +14,7 @@ public class TaskDeleteCommand implements Command {
 	}
 
 	@Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[작업 삭제]");
 
     try {

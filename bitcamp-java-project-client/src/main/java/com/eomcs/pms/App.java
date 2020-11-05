@@ -1,5 +1,6 @@
 package com.eomcs.pms;
 
+import java.sql.Connection;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -12,9 +13,13 @@ import java.util.Map;
 import java.util.Queue;
 
 import com.eomcs.context.ApplicationContextListener;
-import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
+import com.eomcs.pms.dao.TaskDao;
+import com.eomcs.pms.dao.mariadb.BoardDaoImpl;
+import com.eomcs.pms.dao.mariadb.MemberDaoImpl;
+import com.eomcs.pms.dao.mariadb.ProjectDaoImpl;
+import com.eomcs.pms.dao.mariadb.TaskDaoImpl;
 import com.eomcs.pms.handler.BoardAddCommand;
 import com.eomcs.pms.handler.BoardDeleteCommand;
 import com.eomcs.pms.handler.BoardDetailCommand;
@@ -22,6 +27,7 @@ import com.eomcs.pms.handler.BoardListCommand;
 import com.eomcs.pms.handler.BoardUpdateCommand;
 import com.eomcs.pms.handler.Command;
 import com.eomcs.pms.handler.HelloCommand;
+import com.eomcs.pms.handler.LoginCommand;
 import com.eomcs.pms.handler.MemberAddCommand;
 import com.eomcs.pms.handler.MemberDeleteCommand;
 import com.eomcs.pms.handler.MemberDetailCommand;
@@ -42,40 +48,29 @@ import com.eomcs.util.Prompt;
 
 public class App {
 
-  // 옵저버와 공유할 맵 객체
+ 
   Map<String,Object> context = new Hashtable<>();
+  
 
-  // 옵저버를 보관할 컬렉션 객체
   List<ApplicationContextListener> listeners = new ArrayList<>();
 
-  // 옵저버를 등록하는 메서드
+  
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
   }
 
-  // 옵저버를 제거하는 메서드
   public void removeApplicationContextListener(ApplicationContextListener listener) {
     listeners.remove(listener);
   }
 
-  // service() 실행 전에 옵저버에게 통지한다.
   private void notifyApplicationContextListenerOnServiceStarted() {
     for (ApplicationContextListener listener : listeners) {
-      // 곧 서비스를 시작할테니 준비하라고,
-      // 서비스 시작에 관심있는 각 옵저버에게 통지한다.
-      // => 옵저버에게 맵 객체를 넘겨준다.
-      // => 옵저버는 작업 결과를 파라미터로 넘겨준 맵 객체에 담아 줄 것이다.
       listener.contextInitialized(context);
     }
   }
 
-  // service() 실행 후에 옵저버에게 통지한다.
   private void notifyApplicationContextListenerOnServiceStopped() {
     for (ApplicationContextListener listener : listeners) {
-      // 서비스가 종료되었으니 마무리 작업하라고,
-      // 마무리 작업에 관심있는 각 옵저버에게 통지한다.
-      // => 옵저버에게 맵 객체를 넘겨준다.
-      // => 옵저버는 작업 결과를 파라미터로 넘겨준 맵 객체에 담아 줄 것이다.
       listener.contextDestroyed(context);
     }
   }
@@ -96,10 +91,13 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    BoardDao baordDao = new BoardDao();
-    MemberDao memberDao = new MemberDao();
-    ProjectDao projectDao = new ProjectDao();
-    MemberListCommand memberListCommand = new MemberListCommand(memberDao);
+    Connection con = (Connection) context.get("con");
+
+    BoardDaoImpl baordDao = new BoardDaoImpl(con);
+    MemberDao memberDao = new MemberDaoImpl(con);
+    ProjectDao projectDao = new ProjectDaoImpl(con);
+    TaskDao taskDao = new TaskDaoImpl(con);
+  
     
     commandMap.put("/board/add", new BoardAddCommand(baordDao,memberDao));
     commandMap.put("/board/list", new BoardListCommand(baordDao));
@@ -119,13 +117,15 @@ public class App {
     commandMap.put("/project/update", new ProjectUpdateCommand(projectDao, memberDao));
     commandMap.put("/project/delete", new ProjectDeleteCommand(projectDao));
 
-    commandMap.put("/task/add", new TaskAddCommand(memberListCommand));
-    commandMap.put("/task/list", new TaskListCommand());
-    commandMap.put("/task/detail", new TaskDetailCommand());
-    commandMap.put("/task/update", new TaskUpdateCommand(memberListCommand));
-    commandMap.put("/task/delete", new TaskDeleteCommand());
+    commandMap.put("/task/add", new TaskAddCommand(taskDao, projectDao, memberDao));
+    commandMap.put("/task/list", new TaskListCommand(taskDao, memberDao));
+    commandMap.put("/task/detail", new TaskDetailCommand(taskDao));
+    commandMap.put("/task/update", new TaskUpdateCommand(taskDao, projectDao, memberDao));
+    commandMap.put("/task/delete", new TaskDeleteCommand(taskDao));
 
     commandMap.put("/hello", new HelloCommand());
+    
+    commandMap.put("/login", new LoginCommand(memberDao));
 
     Deque<String> commandStack = new ArrayDeque<>();
     Queue<String> commandQueue = new LinkedList<>();
@@ -153,7 +153,7 @@ public class App {
             if (command != null) {
               try {
                 // 실행 중 오류가 발생할 수 있는 코드는 try 블록 안에 둔다.
-                command.execute();
+                command.execute(context);
               } catch (Exception e) {
                 // 오류가 발생하면 그 정보를 갖고 있는 객체의 클래스 이름을 출력한다.
                 System.out.println("--------------------------------------------------------------");
