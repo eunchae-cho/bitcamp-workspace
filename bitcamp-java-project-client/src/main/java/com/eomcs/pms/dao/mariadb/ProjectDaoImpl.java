@@ -34,7 +34,7 @@ public class ProjectDaoImpl implements com.eomcs.pms.dao.ProjectDao {
 				stmt.setInt(5, project.getOwner().getNo());
 				stmt.executeUpdate();
 
-				Thread.sleep(60000);
+				//Thread.sleep(60000);
 
 				// 금방 입력한 프로젝트의 no 값을 가져오기
 				try (ResultSet keyRs = stmt.getGeneratedKeys()) {

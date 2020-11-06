@@ -151,11 +151,12 @@ public class MemberDaoImpl implements com.eomcs.pms.dao.MemberDao {
 	  		    }
   }
   
+  @Override
   public Member findByEmailPassword(String email, String password) throws Exception {
 	  try (PreparedStatement stmt = con.prepareStatement(
 	            "select no, name, email, photo, tel, cdt"
 	                + " from pms_member"
-	                + " where email = ? and password(?)")) {
+	                + " where email = ? and password = password(?)")) {
 
 	      stmt.setString(1, email);
 	      stmt.setString(2, password);

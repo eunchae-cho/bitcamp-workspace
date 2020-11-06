@@ -2,16 +2,16 @@ package com.eomcs.pms.handler;
 
 import java.util.Map;
 
-import com.eomcs.pms.dao.mariadb.BoardDaoImpl;
+import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
 public class BoardDetailCommand implements Command {
 	
-	BoardDaoImpl boardDaoImpl;
+	BoardDao boardDao;
 	
-	public BoardDetailCommand(BoardDaoImpl boardDaoImpl) {
-		this.boardDaoImpl = boardDaoImpl;
+	public BoardDetailCommand(BoardDao boardDao) {
+		this.boardDao = boardDao;
 	}
 
   @Override
@@ -20,7 +20,7 @@ public class BoardDetailCommand implements Command {
     int no = Prompt.inputInt("번호? ");
 
     try {
-        Board board = boardDaoImpl.findByNo(no);
+        Board board = boardDao.findByNo(no);
         if (board == null) {
           System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
           return;

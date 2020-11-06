@@ -2,20 +2,20 @@ package com.eomcs.pms.handler;
 
 import java.util.Map;
 
+import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.dao.MemberDao;
-import com.eomcs.pms.dao.mariadb.BoardDaoImpl;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
 public class BoardAddCommand implements Command {
 
-	BoardDaoImpl boardDaoImpl;
+	BoardDao boardDao;
 	MemberDao memberDao;
 	MemberListCommand memberListCommand;
 
-	public BoardAddCommand(BoardDaoImpl boardDaoImpl, MemberDao memberDao) {
-		this.boardDaoImpl = boardDaoImpl;
+	public BoardAddCommand(BoardDao boardDao, MemberDao memberDao) {
+		this.boardDao = boardDao;
 		this.memberDao = memberDao;
 	}
 
@@ -31,7 +31,7 @@ public class BoardAddCommand implements Command {
 			Member loginUser = (Member) context.get("loginUser");
 			board.setWriter(loginUser);
 
-				boardDaoImpl.insert(board);
+				boardDao.insert(board);
 				System.out.println("게시글을 등록하였습니다.");
 			
 		} catch (Exception e) {
