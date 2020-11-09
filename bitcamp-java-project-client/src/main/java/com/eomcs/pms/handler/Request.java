@@ -3,30 +3,24 @@ package com.eomcs.pms.handler;
 import java.util.Map;
 
 public class Request {
-	
-	private String commandPath;
-	private Map<String,Object> context;
-	
-	public Request(String commandPath, Map<String,Object> context) {
-		this.commandPath = commandPath;
-		this.context = context;
-	}
+  String commandPath;
+  Map<String,Object> context;
 
-	public String getCommandPath() {
-		return commandPath;
-	}
+  public Request(String commandPath, Map<String,Object> context) {
+    this.commandPath = commandPath;
+    this.context = context;
+  }
 
-	public void setCommandPath(String commandPath) {
-		this.commandPath = commandPath;
-	}
+  public String getCommandPath() {
+    return commandPath;
+  }
 
-	public Map<String, Object> getContext() {
-		return context;
-	}
+  public Map<String, Object> getContext() {
+    return context;
+  }
 
-	public void setContext(Map<String, Object> context) {
-		this.context = context;
-	}
-	
-	
 }
+
+
+
+

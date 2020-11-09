@@ -19,6 +19,9 @@ repositories {
 }
 
 dependencies {
+    // MyBatis Persistence Framework
+    implementation 'org.mybatis:mybatis:3.5.6'
+
     // MairaDB JDBC Driver
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
     

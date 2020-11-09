@@ -3,7 +3,6 @@ package com.eomcs.pms.handler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Member;
@@ -41,8 +40,6 @@ public class ProjectUpdateCommand implements Command {
       project.setEndDate(Prompt.inputDate(String.format(
           "종료일(%s)? ", project.getEndDate())));
 
-     
-      
       // 프로젝트에 참여할 회원 정보를 담는다.
       List<Member> members = new ArrayList<>();
       while (true) {
