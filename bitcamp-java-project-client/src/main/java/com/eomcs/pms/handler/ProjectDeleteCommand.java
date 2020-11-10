@@ -1,14 +1,18 @@
 package com.eomcs.pms.handler;
 
 import java.util.Map;
+
 import com.eomcs.pms.dao.ProjectDao;
+import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.util.Prompt;
 
 public class ProjectDeleteCommand implements Command {
   ProjectDao projectDao;
+  TaskDao taskDao;
 
-  public ProjectDeleteCommand(ProjectDao projectDao) {
+  public ProjectDeleteCommand(ProjectDao projectDao, TaskDao taskdao) {
     this.projectDao = projectDao;
+    this.taskDao = taskdao;
   }
 
   @Override
@@ -23,6 +27,7 @@ public class ProjectDeleteCommand implements Command {
     }
 
     try {
+    	taskDao.deleteByProjectNo(no);
       if (projectDao.delete(no) == 0) {
         System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
         return;
