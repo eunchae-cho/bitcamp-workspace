@@ -32,9 +32,7 @@
     values(#{name},#{email},password(#{password}),#{photo},#{tel})
   </insert>
   
-  <select id="findByNo" 
-    parameterType="int" 
-    resultMap="MemberMap">
+  <select id="findByNo" parameterType="int" resultMap="MemberMap">
     select 
       no, 
       name, 
@@ -48,9 +46,7 @@
       no = #{no}
   </select>
   
-  <select id="findByName" 
-    parameterType="string" 
-    resultMap="MemberMap">
+  <select id="findByName" parameterType="string" resultMap="MemberMap">
     select 
       no, 
       name, 
@@ -64,23 +60,20 @@
       name = #{name}
   </select>
   
-  <select id="findByProjectNo" 
-    parameterType="int" 
-    resultMap="MemberMap">
+  <select id="findByProjectNo" parameterType="int" resultMap="MemberMap">
     select 
       m.no, 
       m.name
     from 
-      pms_member_project mp inner join pms_member m on mp.member_no=m.no"
+      pms_member_project mp 
+      inner join pms_member m on mp.member_no=m.no
     where 
       mp.project_no=#{no}
     order by 
       m.name asc
   </select>
 
-  <select id="findByEmailPassword" 
-    parameterType="map" 
-    resultMap="MemberMap">
+  <select id="findByEmailPassword" parameterType="map" resultMap="MemberMap">
     select 
       no, 
       name, 
@@ -91,18 +84,20 @@
     from 
       pms_member
     where 
-      email = #{email} 
+      email = #{email}
       and password = password(#{password})
   </select>
   
   <update id="update" parameterType="member">
-    update pms_member set
-      name = #{name},
-      email = #{email},
-      password = password(#{password}),
-      photo = #{photo},
-      tel = #{tel}
+    update pms_member
+    <set>
+      <if test="name != ''">name = #{name}</if>
+      <if test="email != ''">,email = #{email}</if>
+      <if test="password != ''">,password = password(#{password})</if>
+      <if test="photo != ''">,photo = #{photo}</if>
+      <if test="tel != ''">,tel = #{tel}</if>
     where no = #{no}
+    </set>
   </update>
   
   <delete id="delete" parameterType="int">

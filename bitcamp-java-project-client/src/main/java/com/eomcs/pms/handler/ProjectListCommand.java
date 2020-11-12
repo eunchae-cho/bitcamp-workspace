@@ -2,7 +2,6 @@ package com.eomcs.pms.handler;
 
 import java.util.List;
 import java.util.Map;
-
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
@@ -10,7 +9,6 @@ import com.eomcs.pms.domain.Project;
 public class ProjectListCommand implements Command {
   ProjectDao projectDao;
 
-  
   public ProjectListCommand(ProjectDao projectDao) {
     this.projectDao = projectDao;
   }
@@ -25,13 +23,11 @@ public class ProjectListCommand implements Command {
 
       for (Project project : list) {
         StringBuilder members = new StringBuilder();
-        if (project.getMembers() != null) {
         for (Member member : project.getMembers()) {
           if (members.length() > 0) {
             members.append(",");
           }
           members.append(member.getName());
-        }
         }
 
         System.out.printf("%d, %s, %s ~ %s, %s, [%s]\n",
