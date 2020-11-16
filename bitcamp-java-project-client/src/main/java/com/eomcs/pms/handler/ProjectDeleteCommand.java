@@ -4,14 +4,17 @@ import java.util.Map;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.SqlSessionFactoryProxy;
 
 public class ProjectDeleteCommand implements Command {
   ProjectDao projectDao;
   TaskDao taskDao;
+  SqlSessionFactoryProxy factoryProxy;
 
-  public ProjectDeleteCommand(ProjectDao projectDao, TaskDao taskDao) {
+  public ProjectDeleteCommand(ProjectDao projectDao, TaskDao taskDao, SqlSessionFactoryProxy factoryProxy) {
     this.projectDao = projectDao;
     this.taskDao = taskDao;
+    this.factoryProxy = factoryProxy;
   }
 
   @Override
@@ -26,6 +29,8 @@ public class ProjectDeleteCommand implements Command {
     }
 
     try {
+    	factoryProxy.startTransaction();
+    	
       // 프로젝트에 소속된 모든 작업 삭제하기
       taskDao.deleteByProjectNo(no);
 
@@ -35,10 +40,14 @@ public class ProjectDeleteCommand implements Command {
         return;
       }
       System.out.println("프로젝트를 삭제하였습니다.");
-
+      factoryProxy.commit();
+      
     } catch (Exception e) {
       System.out.println("프로젝트 삭제 중 오류 발생!");
+      factoryProxy.rollback();
       e.printStackTrace();
+    } finally {
+    	factoryProxy.endTransaction();
     }
   }
 }

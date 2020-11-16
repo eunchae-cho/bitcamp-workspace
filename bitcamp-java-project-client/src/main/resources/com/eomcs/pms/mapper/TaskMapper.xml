@@ -19,7 +19,7 @@
     </association>
   </resultMap>
   
-  <select id="findAll" resultMap="TaskMap">
+  <select id="findAll" parameterType="map" resultMap="TaskMap">
     select 
       t.no, 
       t.content,
@@ -30,6 +30,11 @@
     from 
       pms_task t 
       inner join pms_member m on t.owner=m.no
+    <where>
+      <if test="projectNo != null">
+        t.project_no = #{projectNo}
+      </if>
+    </where>
     order by t.deadline asc
   </select>
   
@@ -55,6 +60,7 @@
     values(#{content},#{deadline},#{owner.no},#{projectNo},#{status})
   </insert>
   
+    
   <update id="update" parameterType="task">
     update pms_task set
       content = #{content},

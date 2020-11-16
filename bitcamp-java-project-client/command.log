@@ -1,5 +1,6 @@
+/login
+/project/update
+/project/detail
+/project/delte
+/project/delete
 /project/list
-/project/search
-/project/detail/search
-/project/detailSearch
-/project/detailSearch
