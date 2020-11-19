@@ -2,48 +2,41 @@ package com.eomcs.pms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.Map;
+
 import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.service.MemberService;
 import com.eomcs.util.Prompt;
 
 public class MemberDetailCommand implements Command {
 
-  List<Member> memberList;
+	MemberService memberService;
 
-  public MemberDetailCommand(List<Member> list) {
-    this.memberList = list;
-  }
+	public MemberDetailCommand(MemberService memberService) {
+		this.memberService = memberService;
+	}
 
-  @Override
-  public void execute(PrintWriter out, BufferedReader in) {
-    try {
-      out.println("[회원 상세보기]");
-      int no = Prompt.inputInt("번호? ", out, in);
-      Member member = findByNo(no);
+	@Override
+	public void execute(PrintWriter out, BufferedReader in, Map<String, Object> context) {
 
-      if (member == null) {
-        out.println("해당 번호의 회원이 없습니다.");
-        return;
-      }
+		try {
+			out.println("[회원 상세보기]");
+			int no = Prompt.inputInt("번호? ", out, in);
+			Member member = memberService.get(no);
 
-      out.printf("이름: %s\n", member.getName());
-      out.printf("이메일: %s\n", member.getEmail());
-      out.printf("사진: %s\n", member.getPhoto());
-      out.printf("전화: %s\n", member.getTel());
-      out.printf("등록일: %s\n", member.getRegisteredDate());
+			if (member == null) {
+				out.println("해당 번호의 회원이 없습니다.");
+				return;
+			}
 
-    } catch (Exception e) {
-      out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
-    }
-  }
+			out.printf("이름: %s\n", member.getName());
+			out.printf("이메일: %s\n", member.getEmail());
+			out.printf("사진: %s\n", member.getPhoto());
+			out.printf("전화: %s\n", member.getTel());
+			out.printf("등록일: %s\n", member.getRegisteredDate());
 
-  private Member findByNo(int no) {
-    for (int i = 0; i < memberList.size(); i++) {
-      Member member = memberList.get(i);
-      if (member.getNo() == no) {
-        return member;
-      }
-    }
-    return null;
-  }
+		} catch (Exception e) {
+			out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
+		}
+	}
 }

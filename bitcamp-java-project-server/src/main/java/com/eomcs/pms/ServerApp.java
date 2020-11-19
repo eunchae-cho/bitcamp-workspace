@@ -140,7 +140,7 @@ public class ServerApp {
 
       Command command = (Command) context.get(request);
       if (command != null) {
-        command.execute(out, in);
+    	 command.execute(out, in, context);
       } else {
         out.println("해당 명령을 처리할 수 없습니다!");
       }
