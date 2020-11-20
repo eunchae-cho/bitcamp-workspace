@@ -2,23 +2,23 @@ package com.eomcs.pms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.util.Map;
-
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.service.MemberService;
 import com.eomcs.util.Prompt;
 
 public class MemberUpdateCommand implements Command {
 
-	 MemberService memberService;
+  MemberService memberService;
 
-	  public MemberUpdateCommand(MemberService memberService) {
-	    this.memberService = memberService;
-	  }
+  public MemberUpdateCommand(MemberService memberService) {
+    this.memberService = memberService;
+  }
 
   @Override
-  public void execute(PrintWriter out, BufferedReader in, Map<String, Object> context) {
-	  
+  public void execute(Request request) {
+    PrintWriter out = request.getWriter();
+    BufferedReader in = request.getReader();
+
     try {
       out.println("[회원 변경]");
       int no = Prompt.inputInt("번호? ", out, in);
@@ -45,11 +45,15 @@ public class MemberUpdateCommand implements Command {
         return;
       }
 
-      memberService.update(member);
-      out.println("회원을 변경하였습니다.");
+      if (memberService.update(member) == 0) {
+        out.println("해당 번호의 회원이 존재하지 않습니다.");
+      } else {
+        out.println("회원을 변경하였습니다.");
+      }
 
     } catch (Exception e) {
       out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
+      e.printStackTrace();
     }
   }
 }
