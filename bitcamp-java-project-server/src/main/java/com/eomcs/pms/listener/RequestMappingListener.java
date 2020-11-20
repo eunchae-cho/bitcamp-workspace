@@ -3,6 +3,7 @@ package com.eomcs.pms.listener;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
+import java.net.URLDecoder;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,14 @@ public class RequestMappingListener implements ApplicationContextListener {
 
       // 커맨드 클래스가 있는 패키지의 파일 경로를 알아내기
       // => Mybatis 에서 제공하는 클래스의 도움을 받는다.
-      File commandPackagePath = Resources.getResourceAsFile("com/eomcs/pms/handler");
+      File path = Resources.getResourceAsFile("com/eomcs/pms/handler");
+
+      // => 파일 경로에 URL 인코딩 문자가 들어 있으면 제거한다.
+      String decodedFilePath = URLDecoder.decode(path.getCanonicalPath(), "UTF-8");
+
+      // => URL 디코딩된 파일 경로를 가지고 새로 파일 경로를 만든다.
+      File commandPackagePath = new File(decodedFilePath);
+
       System.out.println(commandPackagePath.getCanonicalPath());
 
       // 해당 패키지의 있는 커맨드 클래스를 찾아 인스턴스를 생성한다.

@@ -9,7 +9,8 @@
 plugins {
     id 'java'
     id 'application'
-    id 'eclipse'
+    id 'eclipse-wtp'
+    id 'war'
 }
 
 repositories {
@@ -19,6 +20,8 @@ repositories {
 }
 
 dependencies {
+    // Servlet
+    compile 'javax.servlet:javax.servlet-api:4.0.1'
     // MyBatis Persistence Framework
     implementation 'org.mybatis:mybatis:3.5.6'
 
