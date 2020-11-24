@@ -56,7 +56,7 @@ import javax.servlet.annotation.WebServlet;
 // 왜? 인스턴스는 모든 클라이언트가 공유하기 때문이다.
 //
 
-@WebServlet("/ex01/first")
+//@WebServlet("/ex01/first")
 public class Servlet01 implements Servlet {
 
   ServletConfig config;
