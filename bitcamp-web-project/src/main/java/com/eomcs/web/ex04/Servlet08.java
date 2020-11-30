@@ -1,9 +1,11 @@
 // 썸네일 이미지 만들기
 package com.eomcs.web.ex04;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.UUID;
+
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -12,8 +14,11 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+
 import net.coobird.thumbnailator.ThumbnailParameter;
 import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.Thumbnails.Builder;
+import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.name.Rename;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
@@ -72,10 +77,10 @@ public class Servlet08 extends GenericServlet {
     // Thumbnails.of(this.uploadDir + "/" + filename).size(20, 20).outputFormat("jpg")
     // .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 
-    Thumbnails.of(this.uploadDir + "/" + filename)//
-        .size(20, 20)//
-        .outputFormat("jpg")//
-        .toFiles(new Rename() {
+    Builder<File> thumnailBuilder = Thumbnails.of(this.uploadDir + "/" + filename);
+    thumnailBuilder.size(20, 20);
+    thumnailBuilder.outputFormat("jpg");
+    thumnailBuilder.toFiles(new Rename() {
           @Override
           public String apply(String name, ThumbnailParameter param) {
             return name + "_20x20";
@@ -85,16 +90,28 @@ public class Servlet08 extends GenericServlet {
     Thumbnails.of(this.uploadDir + "/" + filename)//
         .size(80, 80)//
         .outputFormat("jpg") //
-        .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+        .toFiles(new Rename() {
+            @Override
+            public String apply(String name, ThumbnailParameter param) {
+              return name + "_80x80";
+            }
+          });
 
     Thumbnails.of(this.uploadDir + "/" + filename)//
         .size(160, 160) //
         .outputFormat("jpg") //
-        .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+        .crop(Positions.CENTER) // 정사각형으로 잘라서 출력
+        .toFiles(new Rename() {
+            @Override
+            public String apply(String name, ThumbnailParameter param) {
+              return name + "_160x160";
+            }
+          });
 
     out.printf("사진=%s<br>\n", filename);
     out.printf("<img src='../upload/%s_20x20.jpg'><br>\n", filename);
-    out.printf("<img src='../upload/%s' height='80'><br>\n", filename);
+    out.printf("<img src='../upload/%s_80x80.jpg'><br>\n", filename);
+    out.printf("<img src='../upload/%s_160x160.jpg'><br>\n", filename);
     out.printf("<img src='../upload/%s'><br>\n", filename);
     out.println("</body></html>");
   }

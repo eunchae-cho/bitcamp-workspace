@@ -2,6 +2,7 @@
 package com.eomcs.web.ex06;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,9 +11,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 // @WebFilter(
-// value="/ex06/*",
+// value="/ex05/*",
 // initParams={
-// @WebInitParam(name="encoding", value="EUC-KR")
+// @WebInitParam(name="encoding", value="EUC-KR"),
+// @WebInitParam(name="aaa", value="nono")
 // })
 public class Filter02 implements Filter {
 
@@ -29,9 +31,11 @@ public class Filter02 implements Filter {
 
     // 필터의 DD 설정으로 지정한 파라미터 값 가져오기
     System.out.printf("ex06.Filter02 : encoding=%s\n", filterConfig.getInitParameter("encoding"));
+    System.out.printf("ex06.Filter02 : aaa=%s\n", filterConfig.getInitParameter("aaa"));
 
     chain.doFilter(request, response);
   }
+  
 }
 
 
