@@ -3,7 +3,7 @@ package com.eomcs.pms.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.List;
+import java.sql.Date;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eomcs.pms.domain.Member;
-import com.eomcs.pms.service.MemberService;
+import com.eomcs.pms.domain.Task;
+import com.eomcs.pms.service.TaskService;
 
-@WebServlet("/project/form")
-public class ProjectAddFormServlet extends HttpServlet {
+@WebServlet("/task/add")
+public class TaskAddServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     ServletContext ctx = request.getServletContext();
-    MemberService memberService =
-        (MemberService) ctx.getAttribute("memberService");
+    TaskService taskService = (TaskService) ctx.getAttribute("taskService");
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -31,30 +31,29 @@ public class ProjectAddFormServlet extends HttpServlet {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
-    out.println("<title>프로젝트생성</title></head>");
+    out.println("<title>작업등록</title></head>");
     out.println("<body>");
 
     try {
-      out.println("<h1>프로젝트 생성</h1>");
+      out.println("<h1>작업 등록</h1>");
 
-      out.println("<form action='add' method='post'>");
-      out.println("프로젝트명: <input type='text' name='title'><br>");
-      out.println("내용: <textarea name='content' rows='10' cols='60'></textarea><br>");
-      out.println("기간: <input type='date' name='startDate'> ~ ");
-      out.println("      <input type='date' name='endDate'><br>");
-      out.println("팀원: <br>");
-      out.println("<ul>");
+      Task task = new Task();
+      task.setProjectNo(Integer.parseInt(request.getParameter("projectNo")));
+      task.setContent(request.getParameter("content"));
+      task.setDeadline(Date.valueOf(request.getParameter("deadline")));
+      task.setStatus(Integer.parseInt(request.getParameter("status")));
+      task.setOwner(
+          new Member()
+          .setNo(Integer.parseInt(request.getParameter("owner")))
+          );
 
-      List<Member> members = memberService.list();
-      for (Member m : members) {
-        out.printf("  <li><input type='checkbox' name='members' value='%d'>%s</li>\n",
-            m.getNo(),
-            m.getName());
-      }
+      taskService.add(task);
 
-      out.println("</ul><br>");
-      out.println("<button>생성</button>");
-      out.println("</form>");
+      out.println("<p>작업을 등록했습니다.</p>");
+
+      // 응답 헤더에 refresh 정보를 등록한다.
+      response.setHeader("Refresh",
+          "1;url=../project/detail?no=" + request.getParameter("projectNo"));
 
     } catch (Exception e) {
       out.println("<h2>작업 처리 중 오류 발생!</h2>");
