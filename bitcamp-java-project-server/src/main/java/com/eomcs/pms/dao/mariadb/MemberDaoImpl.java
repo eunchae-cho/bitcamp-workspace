@@ -4,9 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Repository;
+
+import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
 
-public class MemberDaoImpl implements com.eomcs.pms.dao.MemberDao {
+@Repository
+public class MemberDaoImpl implements MemberDao {
 
   SqlSessionFactory sqlSessionFactory;
 
