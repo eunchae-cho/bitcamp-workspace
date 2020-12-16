@@ -2,11 +2,12 @@ package com.eomcs.pms.web;
 
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,27 +23,17 @@ import net.coobird.thumbnailator.name.Rename;
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 public class MemberAddServlet {
 
-	MemberService memberService;
-
-	public MemberAddServlet(MemberService memberService) {
-		this.memberService = memberService;
-	}
+	@Autowired ServletContext servletContext;
+	@Autowired MemberService memberService;
 
 	@RequestMapping("/member/add")
-	public String execute(HttpServletRequest request, HttpServletResponse response)
+	public String execute(Member member, Part photoFile, HttpServletResponse response)
 			throws Exception {
-
-		Member member = new Member();
-		member.setName(request.getParameter("name"));
-		member.setEmail(request.getParameter("email"));
-		member.setPassword(request.getParameter("password"));
-		member.setTel(request.getParameter("tel"));
-
-		Part photoPart = request.getPart("photo");
-		String filename = UUID.randomUUID().toString();
-		String saveFilePath = request.getServletContext().getRealPath("/upload/" + filename);
 		
-		photoPart.write(saveFilePath);
+		String filename = UUID.randomUUID().toString();
+		String saveFilePath = servletContext.getRealPath("/upload/" + filename);
+		
+		photoFile.write(saveFilePath);
 		member.setPhoto(filename);
 		generatePhotoThumbnail(saveFilePath);
 

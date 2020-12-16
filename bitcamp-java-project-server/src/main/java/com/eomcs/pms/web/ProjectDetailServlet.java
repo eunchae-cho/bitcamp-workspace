@@ -3,6 +3,7 @@ package com.eomcs.pms.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,13 +14,8 @@ import com.eomcs.pms.service.ProjectService;
 @Controller
 public class ProjectDetailServlet {
 	
-	ProjectService projectService;
-	 MemberService memberService;
-
-	public ProjectDetailServlet(ProjectService projectService, MemberService memberService) {
-		this.projectService = projectService;
-		this.memberService = memberService;
-	}
+	@Autowired ProjectService projectService;
+	@Autowired MemberService memberService;
 
 
   @RequestMapping("/project/detail")

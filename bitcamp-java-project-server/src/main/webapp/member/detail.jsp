@@ -21,7 +21,7 @@ if (member == null) {
 <input type='hidden' name='no' value='<%=member.getNo()%>'><br>
 <a href='../upload/<%=member.getPhoto()%>'>
 <img src='../upload/<%=member.getPhoto()%>_120x120.jpg'></a><br>
-<input type='file' name='photo'>
+<input type='file' name='photoFile'>
 <button>변경</button>
 </form>
 <br>

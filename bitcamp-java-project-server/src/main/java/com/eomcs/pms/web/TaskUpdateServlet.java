@@ -5,6 +5,7 @@ import java.sql.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,13 +16,9 @@ import com.eomcs.pms.service.TaskService;
 @Controller
 public class TaskUpdateServlet {
 	
-	TaskService taskService;
+	@Autowired TaskService taskService;
 
-	public TaskUpdateServlet(TaskService taskService) {
-		this.taskService = taskService;
-	}
-	
-  @RequestMapping("/task/update")
+	  @RequestMapping("/task/update")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
       Task task = new Task();

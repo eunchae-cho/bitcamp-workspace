@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,12 +16,9 @@ import com.eomcs.pms.service.ProjectService;
 @Controller
 public class ProjectListServlet {
 	
-	ProjectService projectService;
+	@Autowired ProjectService projectService;
 
-	public ProjectListServlet(ProjectService projectService) {
-		this.projectService = projectService;
-	}
-
+	
   @RequestMapping("/project/list")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 

@@ -3,6 +3,7 @@ package com.eomcs.pms.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,13 +14,9 @@ import com.eomcs.pms.service.TaskService;
 @Controller
 public class TaskDetailServlet {
 
-	TaskService taskService;
-	ProjectService projectService;
+	@Autowired TaskService taskService;
+	@Autowired ProjectService projectService;
 
-	public TaskDetailServlet(TaskService taskService, ProjectService projectService) {
-		this.taskService = taskService;
-		this.projectService = projectService;
-	}
 
 	@RequestMapping("/task/detail")
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

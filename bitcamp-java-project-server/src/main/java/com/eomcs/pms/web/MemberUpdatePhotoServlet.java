@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,12 +23,9 @@ import net.coobird.thumbnailator.name.Rename;
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 public class MemberUpdatePhotoServlet {
 	
-	MemberService memberService;
-
-	public MemberUpdatePhotoServlet(MemberService memberService) {
-		this.memberService = memberService;
-	}
-
+	@Autowired MemberService memberService;
+	
+	
 	@RequestMapping("/member/updatePhoto")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -35,11 +33,11 @@ public class MemberUpdatePhotoServlet {
     member.setNo(Integer.parseInt(request.getParameter("no")));
 
     // 회원 사진 파일 저장
-    Part photoPart = request.getPart("photo");
-    if (photoPart.getSize() > 0) {
+    Part photoFile = request.getPart("photo");
+    if (photoFile.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       String saveFilePath =  request.getServletContext().getRealPath("/upload/" + filename);
-      photoPart.write(saveFilePath);
+      photoFile.write(saveFilePath);
       member.setPhoto(filename);
 
       generatePhotoThumbnail(saveFilePath);

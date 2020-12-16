@@ -10,23 +10,22 @@ import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.util.SqlSessionFactoryProxy;
+
 
 @Service
 public class DefaultProjectService implements ProjectService {
 
   TaskDao taskDao;
   ProjectDao projectDao;
-  SqlSessionFactoryProxy factoryProxy;
+ 
 
   public DefaultProjectService(
       TaskDao taskDao,
-      ProjectDao projectDao,
-      SqlSessionFactoryProxy factoryProxy) {
+      ProjectDao projectDao) {
 
     this.projectDao = projectDao;
     this.taskDao = taskDao;
-    this.factoryProxy = factoryProxy;
+ 
   }
 
   @Override
@@ -56,23 +55,22 @@ public class DefaultProjectService implements ProjectService {
   @Override
   public int add(Project project) throws Exception {
     try {
-      factoryProxy.startTransaction();
+
 
       projectDao.insert(project);
 
       //if (100 == 100) throw new Exception("일부러 예외 발생!");
 
       projectDao.insertMembers(project);
-
-      factoryProxy.commit();
+      
       return 1;
 
     } catch (Exception e) {
-      factoryProxy.rollback();
+   
       throw e;
 
     } finally {
-      factoryProxy.endTransaction();
+     
     }
   }
 

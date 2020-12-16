@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,13 +19,9 @@ import com.eomcs.pms.service.ProjectService;
 @Controller 
 public class ProjectAddServlet {
 	
-	ProjectService projectService;
+	@Autowired ProjectService projectService;
 
-	public ProjectAddServlet(ProjectService projectService) {
-		this.projectService = projectService;
-	}
-
-  @RequestMapping("/project/add")
+	  @RequestMapping("/project/add")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
       Project project = new Project();

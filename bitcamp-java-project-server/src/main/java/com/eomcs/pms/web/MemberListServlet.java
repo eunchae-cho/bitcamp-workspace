@@ -1,31 +1,23 @@
 package com.eomcs.pms.web;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.service.MemberService;
 
 @Controller
 public class MemberListServlet {
 
-	MemberService memberService;
-
-	public MemberListServlet(MemberService memberService) {
-		this.memberService = memberService;
-	}
-
+	@Autowired MemberService memberService;
+	
 	@RequestMapping("/member/list")
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		response.setContentType("text/html;charset=UTF-8");
-		List<Member> list = memberService.list();
-		request.setAttribute("list", list);
-		return "/member/list.jsp";
+	public ModelAndView execute() throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("list", memberService.list());
+		mv.setViewName("/member/list.jsp");
+		return mv;
 	}
 }
