@@ -1,23 +1,20 @@
-package com.eomcs.pms.service;
+package com.eomcs.pms.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Service;
-
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
-
+import com.eomcs.pms.service.ProjectService;
 
 @Service
 public class DefaultProjectService implements ProjectService {
 
   TaskDao taskDao;
   ProjectDao projectDao;
- 
 
   public DefaultProjectService(
       TaskDao taskDao,
@@ -25,7 +22,6 @@ public class DefaultProjectService implements ProjectService {
 
     this.projectDao = projectDao;
     this.taskDao = taskDao;
- 
   }
 
   @Override
@@ -55,28 +51,24 @@ public class DefaultProjectService implements ProjectService {
   @Override
   public int add(Project project) throws Exception {
     try {
-
-
       projectDao.insert(project);
 
       //if (100 == 100) throw new Exception("일부러 예외 발생!");
 
       projectDao.insertMembers(project);
-      
+
       return 1;
 
     } catch (Exception e) {
-   
       throw e;
 
     } finally {
-     
+
     }
   }
 
   @Override
   public List<Project> list() throws Exception {
-    // 이 메서드를 보면 서비스 객체가 할 일이 없다.
     // 그냥 DAO 객체의 메서드를 호출한 다음에 그 리턴 값을
     // 그대로 리턴해주는 일을 한다.
     // 그럼 왜 이런 메서드를 만들어야 할까?

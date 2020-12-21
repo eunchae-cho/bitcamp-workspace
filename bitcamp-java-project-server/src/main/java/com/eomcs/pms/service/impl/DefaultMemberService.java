@@ -1,12 +1,11 @@
-package com.eomcs.pms.service;
+package com.eomcs.pms.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.service.MemberService;
 
 @Service
 public class DefaultMemberService implements MemberService {
@@ -49,10 +48,11 @@ public class DefaultMemberService implements MemberService {
 
   @Override
   public Member get(String email, String password) throws Exception {
-	  HashMap<String,Object> map = new HashMap<>();
-	    map.put("email", email);
-	    map.put("password", password);
-	  return memberDao.findByEmailPassword(map);
+    HashMap<String,Object> map = new HashMap<>();
+    map.put("email", email);
+    map.put("password", password);
+
+    return memberDao.findByEmailPassword(map);
   }
 
   @Override
