@@ -808,5 +808,240 @@ macOS 개발 환경 구축하기
 
 - DB 모델링
   - 논리 모델링(계속)
+  - 물리 모델링
 - UI 프로토타입 최종 발표
   - 팀 별 프로젝트의 최종 UI 프로토타입을 발표한다.
+
+## 80일차(2020-11-16,월)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 41-c 버전 수행 : DB 프로그래밍 더 쉽고 간단히 하는 방법 : Mybatis에서 트랜잭션 다루기
+- DB 모델링
+  - 팀 별 프로젝트에 대해 DB 모델링 수행
+
+## 81일차(2020-11-17,화)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 42 버전 수행 : 비즈니스 로직 분리하기 : 서비스 객체의 도입
+- DB 모델링 1차 검토
+  - 팀 별 작성한 DB 모델링 검토
+
+## 82일차(2020-11-18,수)
+
+- DB 모델링 1차 검토
+  - 팀 별 작성한 DB 모델링 검토
+  - 팀 별 DB모델링 개정
+  - 예제 데이터 입력
+
+## 83일차(2020-11-19,목)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 43 애플리케이션 서버 아키텍처로 전환하기
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기
+
+## 84일차(2020-11-20,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 85일차(2020-11-23,월)
+
+- 서블릿 프로그래밍(bitcamp-web-project)
+  - 웹 애플리케이션 서버 아키텍처의 개념
+  - JavaEE 와 Servlet API의 관계
+  - JavaEE 구현체와 서블릿 컨테이너의 관계
+  - eomcs-java-web 저장소 복제하기
+  - eomcs-web-project/src-00 예제 실습
+  - Servlet 인터페이스의 Life-cycle 메서드
+
+## 86일차(2020-11-24,화)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex01 예제 실습
+  - com.eomcs.web.ex02 예제 실습
+  - com.eomcs.web.ex03 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 87일차(2020-11-25,수)
+
+- HTML 태그 사용법
+  - src/main/webapp/temp/ch2 예제 실습
+
+## 88일차(2020-11-26,목)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex04 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 89일차(2020-11-27,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 90일차(2020-11-30,월)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex06 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 91일차(2020-12-01,화)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex06 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 92일차(2020-12-02,수)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex07 ~ ex08 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 92일차(2020-12-02,수)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex07 ~ ex08 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 93일차(2020-12-03,목)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 45-a 버전 수행 : MVC 아키텍처로 전환하기 : JSP를 활용하여 view 컴포넌트 분리하기
+
+## 94일차(2020-12-04,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 45-a 버전 수행 : MVC 아키텍처로 전환하기 : JSP를 활용하여 view 컴포넌트 분리하기(계속)
+
+## 95일차(2020-12-07,월)
+
+- JSP 프로그래밍
+  - src/main/webapp/jsp/* 예제 실습
+  - src/main/webapp/el/* 예제 실습
+  - src/main/webapp/jstl/* 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 45-b 버전 수행 : MVC 아키텍처로 전환하기 : EL 및 JSTL 활용하기
+
+## 96일차(2020-12-08,화)
+
+- CSS 활용법
+  - src/main/webapp/css/* 예제 실습
+
+## 97일차(2020-12-09,수)
+
+- CSS 활용법
+  - src/main/webapp/css/* 예제 실습(계속)
+
+## 98일차(2020-12-10,목)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 45-c 버전 수행 : MVC 아키텍처로 전환하기 : 프론트 컨트롤러 도입하기
+  - 45-d 버전 수행 : MVC 아키텍처로 전환하기 : 페이지 컨트롤러를 POJO로 전환하기
+
+## 99일차(2020-12-11,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-a 버전 수행 : Spring WebMVC 프레임워크 도입하기 : DispatcherServlet 프론트 컨트롤러 적용
+  - 46-b 버전 수행 : MVC 아키텍처로 전환하기 : 페이지 컨트롤러에서 요청 파라미터 다루기
+
+## 100일차(2020-12-14,월)
+
+- 리플랙션 API 사용법
+  - com.eomcs.reflect 패키지 예제
+- 애노테이션 사용법
+  - com.eomcs.annotation 패키지 예제
+- Spring IoC 컨테이너 사용법
+  - com.eomcs.spring.ioc 패키지 예제
+
+## 101일차(2020-12-15,화)
+
+- Spring IoC 컨테이너 사용법
+  - com.eomcs.spring.ioc 패키지 예제(계속)
+
+## 102일차(2020-12-16,수)
+
+- 리플랙션 API 사용법(프록시 만들기, DAO 구현체 자동 생성)
+  - com.eomcs.reflect.ex06 패키지 예제
+- Spring IoC 컨테이너 사용법(Mybatis 연동)
+  - com.eomcs.spring.ioc 패키지 예제(계속)
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-c 버전 수행 : Spring WebMVC 프레임워크 도입하기 : Mybatis와 Spring을 연동하기
+
+## 103일차(2020-12-17,목)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-00 ~ src-07
+
+## 104일차(2020-12-18,금)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-08 ~ src-13
+
+## 105일차(2020-12-21,월)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-14
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-d 버전 수행 : Spring WebMVC 프레임워크 도입하기 : Java Config 설정하기
+
+## 106일차(2020-12-22,화)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-14 (계속)
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-d 버전 수행 : Spring WebMVC 프레임워크 도입하기 : Java Config 설정하기(계속)
+
+## 107일차(2020-12-23,수)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-14 (계속)
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-d 버전 수행 : Spring WebMVC 프레임워크 도입하기 : Java Config 설정하기(계속)
+  - 46-e 버전 수행 : Tiles 적용하기
+- JavaScript 프로그래밍(eomcs-web-project)
+  - /webapp/javascript/ex00 예제
+
+## 108일차(2020-12-24,목)
+
+- JavaScript 프로그래밍(eomcs-web-project)
+  - /webapp/javascript/ex01 ~ ex03 예제
+
+
+## 109일차(2020-12-28,월)
+
+- JavaScript 프로그래밍(eomcs-web-project)
+  - /webapp/javascript/ex04 ~ ex08 예제
+
+## 110일차(2020-12-29,화)
+
+- facebook 로그인(eomcs-web-project)
+  - /webapp/facebook/ 예제
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-e 버전 수행 : Tiles 적용하기, AJAX, Facebook 로그인
+
+## 111일차(2020-12-30,수)
+
+- 클라우드 서버에 배치
+  - AWS EC2 인스턴스 생성
+  - openjdk 11 설치
+  - 톰캣 서버 설치
+  - git 설치
+  - gradle 설치
+  - 프로젝트 clone
+  - nodejs 설치
+  - npm install
+  - gradle build
+  - 서버에 배치 및 테스트
+- 도메인 발급 및 연결
+  - gabia.com 에서 도메인 구매
+  - 도메인에 AWS EC2 서버의 IP 연결
+
+## 112일차(2020-12-31,목)
+
+- 프로젝트 발표
+  
