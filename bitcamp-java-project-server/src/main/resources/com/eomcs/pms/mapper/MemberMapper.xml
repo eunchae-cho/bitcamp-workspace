@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.eomcs.pms.dao.MemberDao">
+<mapper namespace="MemberDao">
   
   <resultMap type="member" id="MemberMap">
     <id column="no"           property="no"/>
@@ -19,8 +19,7 @@
       no, 
       name, 
       email, 
-      tel,
-      photo,
+      tel, 
       cdt
     from 
       pms_member
@@ -89,28 +88,14 @@
       and password = password(#{password})
   </select>
   
-  <select id="findByEmail" parameterType="string" resultMap="MemberMap">
-    select 
-      no, 
-      name, 
-      email, 
-      photo, 
-      tel, 
-      cdt
-    from 
-      pms_member
-    where 
-      email = #{email}
-  </select>
-  
   <update id="update" parameterType="member">
     update pms_member
     <set>
-      <if test="name != null">name = #{name},</if>
-      <if test="email != null">email = #{email},</if>
-      <if test="password != null">password = password(#{password}),</if>
-      <if test="photo != null">photo = #{photo},</if>
-      <if test="tel != null">tel = #{tel}</if>
+      <if test="name != ''">name = #{name},</if>
+      <if test="email != ''">email = #{email},</if>
+      <if test="password != ''">password = password(#{password}),</if>
+      <if test="photo != ''">photo = #{photo},</if>
+      <if test="tel != ''">tel = #{tel}</if>
     </set>
     where no = #{no}
   </update>

@@ -13,7 +13,6 @@ public class Project {
   private Date endDate;
   private Member owner;
   private List<Member> members;
-  int state;
 
   public int getNo() {
     return no;
@@ -57,11 +56,4 @@ public class Project {
   public void setMembers(List<Member> members) {
     this.members = members;
   }
-  public int getState() {
-    return state;
-  }
-  public void setState(int state) {
-    this.state = state;
-  }
-
 }

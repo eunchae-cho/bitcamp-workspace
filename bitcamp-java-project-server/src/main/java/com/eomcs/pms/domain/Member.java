@@ -10,67 +10,47 @@ public class Member {
   private String photo;
   private String tel;
   private Date registeredDate;
-  private int state;
 
   public int getNo() {
     return no;
   }
-  public Member setNo(int no) {
+  public void setNo(int no) {
     this.no = no;
-    return this;
   }
   public String getName() {
     return name;
   }
-  public Member setName(String name) {
+  public void setName(String name) {
     this.name = name;
-    return this;
   }
   public String getEmail() {
     return email;
   }
-  public Member setEmail(String email) {
+  public void setEmail(String email) {
     this.email = email;
-    return this;
   }
   public String getPassword() {
     return password;
   }
-  public Member setPassword(String password) {
+  public void setPassword(String password) {
     this.password = password;
-    return this;
   }
   public String getPhoto() {
     return photo;
   }
-  public Member setPhoto(String photo) {
+  public void setPhoto(String photo) {
     this.photo = photo;
-    return this;
   }
   public String getTel() {
     return tel;
   }
-  public Member setTel(String tel) {
+  public void setTel(String tel) {
     this.tel = tel;
-    return this;
   }
   public Date getRegisteredDate() {
     return registeredDate;
   }
-  public Member setRegisteredDate(Date registeredDate) {
+  public void setRegisteredDate(Date registeredDate) {
     this.registeredDate = registeredDate;
-    return this;
-  }
-  public int getState() {
-    return state;
-  }
-  public void setState(int state) {
-    this.state = state;
   }
 }
-
-
-
-
-
-
